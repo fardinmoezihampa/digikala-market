@@ -1,0 +1,251 @@
+1-users
+2-admins
+3-sellers
+4-categories
+5-category_features
+6-category_features_values
+7-products
+8-product_features_values
+9-product_images
+10-product_reviews   //نظرات کاربران
+11-ProductReviewVotes
+12-countries
+13-states
+14-cities
+15-addresses
+16-delivery_method    //روش ارسال (پیشتاز-سفارشی-معمولی)
+17-payments_method    //روش پرداخت (زرین پال - زیبال - )
+18-orders             //سفارشات
+19-order_items
+20-carts              //سبد خرید
+21-payments           //جول پرداخت شده ها
+22-coupons            //جدول تخفیف ها
+
+
+---------------------------------------------------------------------------------------------------
+Schema::create('users', function (Blueprint $table) {
+    $table->id();
+    $table->string('name')->nullable();
+    $table->string('email')->nullable()->unique();
+    $table->string('mobile')->nullable()->unique();
+    $table->string('picture')->nullable();
+    $table->string('password')->nullable();
+    $table->rememberToken();
+    $table->softDeletes();
+});
+
+-------------------------------------------------------------
+Schema::create('admins', function (Blueprint $table) {
+
+    $table->id();
+    $table->string('name');
+    $table->string('email')->unique();
+    $table->string('mobile')->unique();
+    $table->string('password');
+    $table->softDeletes();
+});
+
+-------------------------------------------------------------
+Schema::create('sellers', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->string('shop_name');
+    $table->integer('mobile');
+    $table->integer('phone');
+    $table->text('description')->nullable();
+    $table->string('address');
+    $table->softDeletes();
+    $table->timestamps();
+});
+
+-------------------------------------------------------------
+Schema::create('categories', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->foreignId('category_id')->nullable()->constrained();
+    $table->softDeletes();
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('category_features', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->foreignId('category_id')->nullable()->constrained();
+    $table->softDeletes();
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('category_feature_values', function (Blueprint $table) {
+    $table->id();
+    $table->string('value');
+    $table->foreignId('category_feature_id')->constrained();
+    $table->softDeletes();
+    $table->timestamps();
+});
+
+-------------------------------------------------------------
+Schema::create('products', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->bigInteger('price')->default(0);
+    $table->integer('discount')->default(0);
+    $table->text('short_description')->nullable();
+    $table->longText('long_description')->nullable();
+    $table->integer('stock')->default(0);
+    $table->boolean('featured')->default(false);
+    $table->timestamp('discount_duration')->nullable();
+    $table->foreignId('seller_id')->nullable()->constrained();
+    $table->foreignId('category_id')->constrained();
+    $table->string('p_code')->nullable()->unique();
+    $table->softDeletes();
+    $table->timestamps();
+});
+
+-------------------------------------------------------------
+Schema::create('product_feature_values', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('product_id')->constrained();
+    $table->foreignId('category_feature_id')->constrained();
+    $table->foreignId('category_feature_value_id')->constrained();
+    $table->softDeletes();
+    $table->timestamps();
+});
+
+Schema::create('product_images', function (Blueprint $table) {
+    $table->id();
+    $table->string('path');
+    $table->boolean('is_cover')->default(false);
+    $table->foreignId('product_id')->constrained();
+    $table->softDeletes();
+    $table->timestamps();
+});
+
+-------------------------------------------------------------
+Schema::create('product_reviews', function (Blueprint $table) {
+    $table->id();
+    $table->string('title');
+    $table->text('comment');
+    $table->text('positive');
+    $table->text('negative');
+    $table->integer('rating')->nullable();
+    $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+    $table->foreignId('product_id')->constrained();
+    $table->foreignId('user_id')->constrained();
+    $table->softDeletes();
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('product_review_votes', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('user_id')->constrained();
+    $table->foreignId('product_reviews_id')->constrained();
+    $table->enum('status', ['like', 'dislike']);
+    $table->timestamps();
+});
+
+Schema::create('countries', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('states', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->foreignId('country_id')->constrained();
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('cities', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->foreignId('state_id')->constrained();
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('addresses', function (Blueprint $table) {
+    $table->id();
+    $table->string('mobile')->nullable();
+    $table->string('postal_code')->nullable();
+    $table->text('address');
+    $table->foreignId('country_id')->constrained();
+    $table->foreignId('state_id')->constrained();
+    $table->foreignId('city_id')->constrained();
+    $table->foreignId('user_id')->constrained();
+    $table->softDeletes();
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('delivery_methods', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->integer('price');
+    $table->timestamps();
+});
+-------------------------------------------------------------
+public function up(): void
+{
+    Schema::create('payment_methods', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->string('merchent_id')->nullable();
+        $table->timestamps();
+}
+ -------------------------------------------------------------
+Schema::create('orders', function (Blueprint $table) {
+    $table->id();
+    $table->bigInteger('amount');
+    $table->string('order_number');
+    $table->foreignId('user_id')->constrained();
+    $table->foreignId('payment_method_id')->constrained();
+    $table->foreignId('delivery_method_id')->constrained();
+    $table->foreignId('address_id')->constrained();
+    $table->enum('status', ['pending', 'processing', 'completed', 'canceled'])->default('pending');
+    $table->softDeletes();
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('order_items', function (Blueprint $table) {
+    $table->id();
+    $table->integer('quantity');
+    $table->bigInteger('price');
+    $table->foreignId('order_id')->constrained();
+    $table->foreignId('product_id')->constrained();
+    $table->softDeletes();
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('carts', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('product_id')->constrained();
+    $table->foreignId('user_id')->constrained();
+    $table->integer('quantity');
+    $table->softDeletes();
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('payments', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('order_id')->constrained();
+    $table->foreignId('user_id')->constrained();
+    $table->unsignedInteger('amount');
+    $table->string('order_number');
+    $table->string('refNumber')->nullable()->unique();
+    $table->string('cardNumber')->nullable();
+    $table->enum('status', ['pending', 'completed', 'canceled'])->default('pending');
+    $table->softDeletes();
+    $table->timestamps();
+});
+-------------------------------------------------------------
+Schema::create('coupons', function (Blueprint $table) {
+    $table->id();
+    $table->string('code')->unique();
+    $table->enum('type', ['fixed', 'percent']);
+    $table->bigInteger('value');
+    $table->integer('limit');
+    $table->integer('min_purchase');
+    $table->dateTime('expires_at');
+    $table->boolean('is_active')->default(true);
+    $table->foreignId('user_id')->nullable()->constrained();
+    $table->timestamps();
+});
