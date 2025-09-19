@@ -21,14 +21,14 @@
                             </div>
                         </div>
                         @error('name')
-                        <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-4" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                                <svg> ...</svg>
-                            </button>
+                        <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-4" role="alert"
+                             wire:loading.remove>
                             <strong class="text-white">خطا! : </strong> {{$message}}</button>
                         </div>
                         @enderror
-                        <button type="submit" class="btn btn-primary _effect--ripple waves-effect waves-light">ثبت
+                        <button type="submit" class="btn btn-primary _effect--ripple waves-effect waves-light">
+                            <span wire:loading.remove>ثبت</span>
+                            <div class="spinner-border text-white me-2 align-self-center loader-sm" wire:loading></div>
                         </button>
                     </form>
 
@@ -61,7 +61,8 @@
                             @foreach($countries as $country)
                                 <tr>
                                     <td>
-                                        {{$loop->index+1}}
+                                        {{--{{$loop->index+1}}--}}
+                                        {{$loop->iteration + $countries->firstItem()-1}}
                                     </td>
                                     <td>
                                         <p class="mb-0">{{$country->name}}</p>
@@ -106,6 +107,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        {{$countries->links('layouts.admin.include.pagination')}}
                     </div>
                 </div>
             </div>

@@ -36,3 +36,8 @@
 <link href="/admin/src/assets/css/dark/scrollspyNav.css" rel="stylesheet" type="text/css" />
 <link href="/admin/src/plugins/css/dark/sweetalerts2/custom-sweetalert.css" rel="stylesheet" type="text/css" />
 <!-- END THEME GLOBAL STYLES -->
+
+<!--  BEGIN CUSTOM STYLE FILE pagination -->
+<link href="/admin/src/assets/css/light/elements/custom-pagination.css" rel="stylesheet" type="text/css" />
+<link href="/admin/src/assets/css/dark/elements/custom-pagination.css" rel="stylesheet" type="text/css" />
+<!--  END CUSTOM STYLE FILE pagination -->
