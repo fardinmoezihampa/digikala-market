@@ -10,3 +10,21 @@
 <script src="/admin/src/plugins/src/apex/apexcharts.min.js"></script>
 <script src="/admin/src/assets/js/dashboard/dash_2.js"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+
+<!-- BEGIN THEME GLOBAL STYLE -->
+<script src="/admin/src/plugins/src/sweetalerts2/sweetalerts2.min.js"></script>
+<script src="/admin/src/plugins/src/sweetalerts2/custom-sweetalert.js"></script>
+<!-- END THEME GLOBAL STYLE -->
+
+<script>
+    document.addEventListener('success',function (event){
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: event.detail,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    })
+</script>
+
