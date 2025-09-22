@@ -7,10 +7,8 @@ use Illuminate\Database\Seeder;
 
 class CountrySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
+
     {
         $countries = [
             'آذربایجان', 'آرژانتین', 'آفریقای جنوبی', 'آلبانی', 'آلمان', 'آنگولا', 'اتریش',

@@ -23,7 +23,7 @@ class Index extends Component
             [
                 '*.required' => 'این فیلد الزامیست.',
                 '*.string' => 'مقدار این فیلد نامعتبر است!',
-                '*.max' => 'حداکثر تعداد کارکتر:30',
+                '*.max' => 'حداکثر تعداد کارکتر:max',
             ]);
 
         $validator->validate();
@@ -34,7 +34,7 @@ class Index extends Component
 
     public function edit($country_id)
     {
-        $country = Country::query()->where('id', $country_id)->firstOrFail();
+        $country = Country::query()->where('id', $country_id)->first();
         if ($country) {
             $this->name = $country->name;
             $this->countryId = $country->id;
