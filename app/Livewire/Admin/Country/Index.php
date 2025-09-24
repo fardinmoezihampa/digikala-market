@@ -28,8 +28,8 @@ class Index extends Component
 
         $validator->validate();
         $country->submit($formData, $this->countryId);
-        $this->dispatch('success', 'عملیات با موفقیت انجام شد.');
         $this->reset();
+        $this->dispatch('success', 'عملیات با موفقیت انجام شد.');
     }
 
     public function edit($country_id)

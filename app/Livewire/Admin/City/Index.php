@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\Admin\State;
+namespace App\Livewire\Admin\City;
 
-use App\Models\Country;
+use App\Models\City;
 use App\Models\state;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
@@ -10,77 +10,78 @@ use Livewire\WithPagination;
 
 class Index extends Component
 {
-    use WithPagination;
+   use WithPagination;
 
     public $name;
-    public $countryId;
+    public $states = [];
     public $stateId;
+    public $cityId;
     public $deleteId;
-
-    public $countries = [];
 
     public function mount()
     {
-        $this->countries = Country::all();
+        $this->states = state::all();
     }
 
-    public function submit($formData, state $state)
+
+    public function submit($formData, City $city)
     {
         $validator = Validator::make($formData, [
             'name' => 'required|string|min:2|max:30',
-            'countryId' => 'required|exists:countries,id',
+            'stateId' => 'required|string|exists:states,id',
         ],
             [
                 '*.required' => 'این فیلد الزامیست.',
                 '*.string' => 'نامعتبر است!',
                 '*.max' => 'حداکثر تعداد کارکتر :max',
                 '*.min' => 'حداقل تعداد کارکتر :min',
-                'countryId.exists' => 'نام کشور نامعتبر است.',
+                'countryId.exists' => 'نام استان نامعتبر است.',
             ]);
 
         $validator->validate();
         $this->resetValidation();
-        $state->submit($formData, $this->stateId);
+        $city->submit($formData, $this->cityId);
         $this->reset();
         $this->dispatch('success', 'عملیات با موفقیت انجام شد.');
     }
 
 
-    public function edit($state_id)
-    {
-        $state = state::query()->where('id', $state_id)->first();
-        if ($state) {
-            $this->name = $state->name;
-            $this->stateId = $state->id;
-            $this->countryId = $state->country_id;
-        }
-    }
-
-    public function delete($state_id = null)
+    public function delete($city_id = null)
     {
         // اگر کاربر برای اولین بار کلیک کرد -> فقط id رو نگه داریم (مرحله آماده‌سازی)
-        if ($state_id) {
-            $this->deleteId = $state_id;
+        if ($city_id) {
+            $this->deleteId = $city_id;
             return;
         }
 
         // اگر id خالی بود -> یعنی از modal تایید شده -> حالا رکورد رو حذف کنیم
         if ($this->deleteId) {
-            state::query()->where('id', $this->deleteId)->delete();
+            City::query()->where('id', $this->deleteId)->delete();
             $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد.');
-            $this->deleteId = null; // پاک کردن مقدار برای دفعات بعد
+            $this->deleteId = null;  // پاک کردن مقدار برای دفعات بعد
         }
-
     }
+
+
+    public function edit($city_id)
+    {
+        $city = City::query()->where('id', $city_id)->first();
+        if ($city) {
+            $this->name = $city->name;
+            $this->cityId = $city->id;
+            $this->stateId = $city->state_id;
+        }
+    }
+
 
     public function render()
     {
-        $states = state::query()
-            ->with('country')
+        $cities = City::query()
+            ->with('state')
             ->paginate(10);
 
-        return view('livewire.admin.state.index', [
-            'states' => $states,
+        return view('livewire.admin.city.index', [
+            'cities' => $cities,
         ])->layout('layouts.admin.app');
     }
 }

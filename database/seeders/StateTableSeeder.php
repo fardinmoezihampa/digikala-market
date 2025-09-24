@@ -6,7 +6,7 @@ use App\Models\state;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class StateSeeder extends Seeder
+class StateTableSeeder extends Seeder
 {
 
     public function run(): void
@@ -25,4 +25,5 @@ class StateSeeder extends Seeder
             ]);
         }
     }
+
 }
