@@ -11,7 +11,7 @@
 
             <div class="table-responsive">
                 <table class="table table-bordered">
-                    <thead class="bg-gradient text-white">
+                    <thead class="bg-gradient text-info">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">نام استان</th>

@@ -2,16 +2,25 @@
     <div class="statbox widget box box-shadow">
         <div class="widget-header">
             <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4>لیست دسته بندی ها</h4>
+                <div class="col-md-4">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>لیست دسته بندی ها</h4>
+                    </div>
                 </div>
+                <div class="col-md-8">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" id="search" name="search"
+                               placeholder="جستجو..." autocomplete="">
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="widget-content widget-content-area">
 
             <div class="table-responsive">
                 <table class="table table-bordered">
-                    <thead class="bg-gradient text-white">
+                    <thead class="bg-gradient text-info">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">نام دسته بندی</th>
