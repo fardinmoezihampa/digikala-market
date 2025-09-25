@@ -11,7 +11,7 @@
 
             <div class="table-responsive">
                 <table class="table table-bordered">
-                    <thead>
+                    <thead class="bg-gradient text-white">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">نام دسته بندی</th>
@@ -21,17 +21,23 @@
                     </thead>
                     <tbody>
 
-                    @foreach($categories as $category)
+                    @foreach($allCategories as $category)
                         <tr>
                             <td>
                                 {{--{{$loop->index+1}}--}}
-                                {{$loop->iteration + $categories->firstItem()-1}}
+                                {{$loop->iteration + $allCategories->firstItem()-1}}
                             </td>
                             <td>
                                 <p class="mb-0">{{$category->name}}</p>
                             </td>
                             <td>
-                                <p class="mb-0">{{$category->state->name}}</p>
+                                <p class="mb-0">
+                                    @if($category->parent)
+                                        <span class="text-success">{{$category->parent->name}}</span>
+                                    @else
+                                        <span class="badge badge-light-warning inv-status">بدون والد</span>
+                                    @endif
+                                </p>
                             </td>
                             <td class="text-center">
                                 <div class="action-btns">
@@ -73,7 +79,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{$categories->links('layouts.admin.include.pagination')}}
+                {{$allCategories->links('layouts.admin.include.pagination')}}
             </div>
         </div>
     </div>
