@@ -12,7 +12,7 @@ class Index extends Component
     use WithPagination;
 
     public $name;
-    public $search;
+    public $search='';
     public $categoryId;
     public $parentId;
     public $deleteId;
@@ -77,6 +77,11 @@ class Index extends Component
         }
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $allCategories = Category::query()
@@ -85,6 +90,7 @@ class Index extends Component
             })
             ->latest()
             ->paginate(10);
+
         return view('livewire.admin.category.index', [
             'allCategories' => $allCategories,
         ])->layout('layouts.admin.app');

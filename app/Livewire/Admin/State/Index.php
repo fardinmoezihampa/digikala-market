@@ -13,7 +13,7 @@ class Index extends Component
     use WithPagination;
 
     public $name;
-    public $search;
+    public $search='';
     public $countryId;
     public $stateId;
     public $deleteId;
@@ -71,7 +71,11 @@ class Index extends Component
             $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد.');
             $this->deleteId = null; // پاک کردن مقدار برای دفعات بعد
         }
+    }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     public function render()

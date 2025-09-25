@@ -9,7 +9,8 @@
                 </div>
                 <div class="col-md-8">
                     <div class="col-sm-12">
-                        <input wire:model.live.debounce.300ms="search" type="text" class="form-control" id="search" name="search"
+                        <input wire:model.live.debounce.300ms="search" type="text" class="form-control" id="search"
+                               name="search"
                                placeholder="جستجو..." autocomplete="">
 
                     </div>
@@ -25,6 +26,7 @@
                         <th scope="col">#</th>
                         <th scope="col">نام دسته بندی</th>
                         <th scope="col">دسته بندی والد</th>
+                        <th scope="col" class="text-center">ویژگی دسته</th>
                         <th class="text-center" scope="col">عملیات</th>
                     </tr>
                     </thead>
@@ -47,6 +49,11 @@
                                         <span class="badge badge-light-warning inv-status">بدون والد</span>
                                     @endif
                                 </p>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{route('admin.category.features',$category->id)}}">
+                                    <span class="btn btn-outline-info">ویژگی</span>
+                                </a>
                             </td>
                             <td class="text-center">
                                 <div class="action-btns">

@@ -1,5 +1,5 @@
 <div>
-    @section('title','شهرها')
+    @section('title','مدیریت شهرها')
     <div class="row">
         {{--form--}}
         @include('livewire.admin.city.form')

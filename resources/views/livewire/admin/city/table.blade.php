@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 mt-2">
                         <input wire:model.live.debounce.300ms="search" type="text" class="form-control" id="search" name="search"
                                placeholder="جستجو..." autocomplete="">
 

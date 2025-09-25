@@ -2,15 +2,20 @@
     <div class="statbox widget box box-shadow">
         <div class="widget-header">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                        <h4>لیست کشورها</h4>
+                        <h4>
+                            لیست ویژگی های دسته بندی
+                            <span class="text-info">({{$categoryName}})</span>
+                        </h4>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="col-sm-12 mt-2">
-                        <input wire:model.live.debounce.300ms="search" type="text" class="form-control" id="search" name="search"
-                               placeholder="جستجو..." autocomplete="">
+                        <input wire:model.live.debounce.300ms="search" type="text" class="form-control" id="search"
+                               name="search"
+                               placeholder="جستجو..." autocomplete=""
+                        >
                     </div>
                 </div>
             </div>
@@ -22,24 +27,29 @@
                     <thead class="bg-gradient text-info">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">نام کشور</th>
+                        <th scope="col">نام ویژگی</th>
+                        <th scope="col" class="text-center">مقدار</th>
                         <th class="text-center" scope="col">عملیات</th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    @foreach($countries as $country)
+                    @foreach($categoryFeatures as $feature)
                         <tr>
                             <td>
-                                {{--{{$loop->index+1}}--}}
-                                {{$loop->iteration + $countries->firstItem()-1}}
+                                {{$loop->iteration + $categoryFeatures->firstItem()-1}}
                             </td>
                             <td>
-                                <p class="mb-0">{{$country->name}}</p>
+                                <p class="mb-0">{{$feature->name}}</p>
+                            </td>
+                            <td class="text-center">
+                                <a href="#">
+                                    <span class="btn btn-outline-info">مقدار</span>
+                                </a>
                             </td>
                             <td class="text-center">
                                 <div class="action-btns">
-                                    <a href="javascript:void(0);" wire:click="edit({{$country->id}})"
+                                    <a href="javascript:void(0);" wire:click="edit({{$feature->id}})"
                                        class="action-btn btn-edit bs-tooltip me-2"
                                        data-toggle="tooltip" data-placement="top" title=""
                                        data-bs-original-title="Edit">
@@ -53,7 +63,7 @@
                                         </svg>
                                     </a>
                                     <a href="javascript:void(0);"
-                                       wire:click="delete({{$country->id}})"
+                                       wire:click="delete({{$feature->id}})"
                                        data-bs-toggle="modal"
                                        data-bs-target="#deleteModal"
                                        class="action-btn btn-delete bs-tooltip"
@@ -77,7 +87,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{$countries->links('layouts.admin.include.pagination')}}
+                {{$categoryFeatures->links('layouts.admin.include.pagination')}}
             </div>
         </div>
     </div>
