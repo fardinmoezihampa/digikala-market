@@ -2,8 +2,16 @@
     <div class="statbox widget box box-shadow">
         <div class="widget-header">
             <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                    <h4>لیست کشورها</h4>
+                <div class="col-md-4">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>لیست کشورها</h4>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="col-sm-12">
+                        <input wire:model.live.debounce.300ms="search" type="text" class="form-control" id="search" name="search"
+                               placeholder="جستجو..." autocomplete="">
+                    </div>
                 </div>
             </div>
         </div>

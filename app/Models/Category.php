@@ -12,17 +12,12 @@ class Category extends Model
 
     protected $guarded = [];
 
-    public function parent()
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
-    }
 
     public function submit($formData, $categoryId)
     {
         if ($formData['parentId'] == "") {
             $formData['parentId'] = null;
         }
-
 
         Category::query()->updateOrCreate(
             [
@@ -33,6 +28,16 @@ class Category extends Model
                 'category_id' => $formData['parentId'],
             ]
         );
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'category_id', 'id');
     }
 
 }

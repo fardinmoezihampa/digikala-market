@@ -12,8 +12,10 @@ class Index extends Component
     use WithPagination;
 
     public $name;
+    public $search;
     public $categoryId;
     public $parentId;
+    public $deleteId;
     public $categories = [];
 
     public function mount()
@@ -54,9 +56,35 @@ class Index extends Component
         }
     }
 
+    public function delete($category_id = null)
+    {
+        if ($category_id) {
+            $this->deleteId = $category_id;
+            return;
+        }
+
+        if ($this->deleteId) {
+            $category = Category::query()->where('id', $this->deleteId)->first();
+
+            if ($category->children()->exists()) {
+                $this->dispatch('error', 'این دسته بندی دارای زیر شاخه است و نمی توان آنرا حذف کرد!');
+                return;
+            }
+
+            $category->delete();
+            $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد.');
+            $this->deleteId = null;
+        }
+    }
+
     public function render()
     {
-        $allCategories = Category::query()->latest()->paginate(10);
+        $allCategories = Category::query()
+            ->when($this->search, function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->latest()
+            ->paginate(10);
         return view('livewire.admin.category.index', [
             'allCategories' => $allCategories,
         ])->layout('layouts.admin.app');

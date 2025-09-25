@@ -9,11 +9,11 @@
                 </div>
                 <div class="col-md-8">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="search" name="search"
+                        <input wire:model.live.debounce.300ms="search" type="text" class="form-control" id="search" name="search"
                                placeholder="جستجو..." autocomplete="">
+
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="widget-content widget-content-area">

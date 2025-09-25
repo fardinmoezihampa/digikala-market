@@ -13,6 +13,7 @@ class Index extends Component
     use WithPagination;
 
     public $name;
+    public $search;
     public $countryId;
     public $stateId;
     public $deleteId;
@@ -76,6 +77,9 @@ class Index extends Component
     public function render()
     {
         $states = state::query()
+            ->when($this->search, function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
             ->with('country')
             ->paginate(10);
 

@@ -12,6 +12,7 @@ class Index extends Component
     use  WithPagination;
 
     public $name;
+    public $search;
     public $countryId;
     public $deleteId;
 
@@ -41,11 +42,11 @@ class Index extends Component
         }
     }
 
-   /* public function delete($country_id)
-    {
-        Country::query()->where('id', $country_id)->delete();
-        $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد.');
-    }*/
+    /* public function delete($country_id)
+     {
+         Country::query()->where('id', $country_id)->delete();
+         $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد.');
+     }*/
 
     public function delete($country_id = null)
     {
@@ -65,7 +66,11 @@ class Index extends Component
 
     public function render()
     {
-        $countries = Country::query()->paginate(10);
+        $countries = Country::query()
+            ->when($this->search, function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->paginate(10);
 
         return view('livewire.admin.country.index', [
             'countries' => $countries,
