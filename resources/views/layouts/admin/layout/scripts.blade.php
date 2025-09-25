@@ -17,13 +17,23 @@
 <!-- END THEME GLOBAL STYLE -->
 
 <script>
-    document.addEventListener('success',function (event){
+    document.addEventListener('success', function (event) {
         Swal.fire({
             position: 'center',
             icon: 'success',
             title: event.detail,
             showConfirmButton: false,
             timer: 1500
+        })
+    })
+
+    document.addEventListener('error', function (event) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: event.detail,
+            showConfirmButton: false,
+            timer: 3000
         })
     })
 </script>

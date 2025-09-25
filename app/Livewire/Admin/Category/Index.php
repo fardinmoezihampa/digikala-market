@@ -14,6 +14,7 @@ class Index extends Component
     public $name;
     public $categoryId;
     public $parentId;
+    public $deleteId;
     public $categories = [];
 
     public function mount()
@@ -51,6 +52,27 @@ class Index extends Component
             $this->name = $category->name;
             $this->categoryId = $category->id;
             $this->parentId = $category->category_id;
+        }
+    }
+
+    public function delete($category_id = null)
+    {
+        if ($category_id) {
+            $this->deleteId = $category_id;
+            return;
+        }
+
+        if ($this->deleteId) {
+            $category = Category::query()->where('id', $this->deleteId)->first();
+
+            if ($category->children()->exists()) {
+                $this->dispatch('error', 'این دسته بندی دارای زیر شاخه است و نمی توان آنرا حذف کرد!');
+                return;
+            }
+
+            $category->delete();
+            $this->dispatch('success', 'عملیات حذف با موفقیت انجام شد.');
+            $this->deleteId = null;
         }
     }
 
