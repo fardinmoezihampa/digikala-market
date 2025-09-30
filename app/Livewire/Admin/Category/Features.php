@@ -86,7 +86,6 @@ class Features extends Component
                 $query->where('name', 'like', '%' . $this->search . '%');
             })
             ->where('category_id', $this->categoryId)
-            ->latest()
             ->paginate(5);
 
 

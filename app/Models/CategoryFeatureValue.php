@@ -9,4 +9,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CategoryFeatureValue extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $guarded = [];
+
+    public function submit($formData, $valueId, $featureId)
+    {
+        CategoryFeatureValue::query()->updateOrCreate(
+            [
+                'id' => $valueId,
+            ],
+            [
+                'name' => $formData['value'],
+                'category_feature_id' => $featureId,
+            ]
+        );
+    }
 }

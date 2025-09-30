@@ -13,7 +13,7 @@ class Index extends Component
    use WithPagination;
 
     public $name;
-    public $search;
+    public $search='';
     public $states = [];
     public $stateId;
     public $cityId;
@@ -74,6 +74,10 @@ class Index extends Component
         }
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {

@@ -5,8 +5,8 @@
                 <div class="col-md-6">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                         <h4>
-                            لیست ویژگی های دسته بندی
-                            <span class="text-info">({{$categoryName}})</span>
+                            لیست مقادیر ویژگی
+                            <span class="text-info">({{$featureName}})</span>
                         </h4>
                     </div>
                 </div>
@@ -27,29 +27,23 @@
                     <thead class="bg-gradient text-info">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">نام ویژگی</th>
-                        <th scope="col" class="text-center">مقدار</th>
+                        <th scope="col">نام مقدار</th>
                         <th class="text-center" scope="col">عملیات</th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    @foreach($categoryFeatures as $feature)
+                    @foreach($featureValues as $value)
                         <tr>
                             <td>
-                                {{$loop->iteration + $categoryFeatures->firstItem()-1}}
+                                {{$loop->iteration + $featureValues->firstItem()-1}}
                             </td>
                             <td>
-                                <p class="mb-0">{{$feature->name}}</p>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{route('admin.category.features.values',$feature->id)}}">
-                                    <span class="btn btn-outline-info">مقدار</span>
-                                </a>
+                                <p class="mb-0">{{$value->name}}</p>
                             </td>
                             <td class="text-center">
                                 <div class="action-btns">
-                                    <a href="javascript:void(0);" wire:click="edit({{$feature->id}})"
+                                    <a href="javascript:void(0);" wire:click="edit({{$value->id}})"
                                        class="action-btn btn-edit bs-tooltip me-2"
                                        data-toggle="tooltip" data-placement="top" title=""
                                        data-bs-original-title="Edit">
@@ -63,7 +57,7 @@
                                         </svg>
                                     </a>
                                     <a href="javascript:void(0);"
-                                       wire:click="delete({{$feature->id}})"
+                                       wire:click="delete({{$value->id}})"
                                        data-bs-toggle="modal"
                                        data-bs-target="#deleteModal"
                                        class="action-btn btn-delete bs-tooltip"
@@ -87,7 +81,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{$categoryFeatures->links('layouts.admin.include.pagination')}}
+                {{$featureValues->links('layouts.admin.include.pagination')}}
             </div>
         </div>
     </div>
