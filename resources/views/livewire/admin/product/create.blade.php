@@ -198,7 +198,10 @@
                                 @enderror
                             </div>
                             <div class="col-sm-12">
-                                <button class="btn btn-success w-100">ذخیره</button>
+                                <button class="btn btn-success w-100">
+                                    <span wire:loading.remove>ذخیره</span>
+                                    <div class="spinner-border text-white me-2 align-self-center loader-sm" wire:loading></div>
+                                </button>
                             </div>
                         </div>
                     </div>
