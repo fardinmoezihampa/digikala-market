@@ -21,6 +21,8 @@
 21-payments           //جول پرداخت شده ها
 22-coupons            //جدول تخفیف ها
 
+23-Seo_items_table
+
 
 ---------------------------------------------------------------------------------------------------
 Schema::create('users', function (Blueprint $table) {
@@ -236,16 +238,13 @@ Schema::create('payments', function (Blueprint $table) {
     $table->softDeletes();
     $table->timestamps();
 });
+
 -------------------------------------------------------------
-Schema::create('coupons', function (Blueprint $table) {
+Schema::create('seo_items', function (Blueprint $table) {
     $table->id();
-    $table->string('code')->unique();
-    $table->enum('type', ['fixed', 'percent']);
-    $table->bigInteger('value');
-    $table->integer('limit');
-    $table->integer('min_purchase');
-    $table->dateTime('expires_at');
-    $table->boolean('is_active')->default(true);
-    $table->foreignId('user_id')->nullable()->constrained();
+    $table->string('meta_title');
+    $table->text('meta_description');
+    $table->string('type');
+    $table->foreignId('ref_id');
     $table->timestamps();
 });

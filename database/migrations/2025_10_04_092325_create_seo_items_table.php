@@ -10,15 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sellers', function (Blueprint $table) {
+        Schema::create('seo_items', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('shop_name');
-            $table->string('phone',11);
-            $table->string('mobile',11);
-            $table->text('description')->nullable();
-            $table->string('address');
-            $table->softDeletes();
+            $table->string('slug');
+            $table->string('meta_title');
+            $table->text('meta_description');
+            $table->string('type');
+            $table->foreignId('ref_id');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('sellers');
+        Schema::dropIfExists('seo_items');
     }
 };
