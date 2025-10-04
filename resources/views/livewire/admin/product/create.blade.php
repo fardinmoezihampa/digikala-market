@@ -8,7 +8,8 @@
                 <div class="row mb-4">
                     <div class="col-sm-12">
                         <label for="name">نام محصول</label>
-                        <input type="text" class="form-control" name="name" wire:model.live.debounce.300ms="name" id="name">
+                        <input type="text" class="form-control" name="name" wire:model.live.debounce.300ms="name"
+                               id="name">
                     </div>
                 </div>
                 @error('name')
@@ -47,7 +48,8 @@
                 <div class="row mb-4">
                     <div class="col-sm-12">
                         <label for="meta_description">توضیحات متا</label>
-                        <textarea type="text" class="form-control" id="meta_description" name="meta_description"></textarea>
+                        <textarea type="text" class="form-control" id="meta_description"
+                                  name="meta_description"></textarea>
                     </div>
                 </div>
                 @error('meta_description')
@@ -61,27 +63,28 @@
 
             <div class="widget-content widget-content-area ecommerce-create-section mt-3">
                 <div class="row">
-                    <div class="col-md-8">
-                        <label for="product-images">Upload Images</label>
+                    <div class="col-md-12">
+                        <label for="product-images">آپلود تصاویر محصول</label>
                         <div class="multiple-file-upload">
-                            <input type="file"
-                                   class="filepond file-upload-multiple"
-                                   name="filepond"
-                                   id="product-images"
-                                   multiple
-                                   data-allow-reorder="true"
-                                   data-max-file-size="3MB"
-                                   data-max-files="5">
+                            <input class="form-control" type="file" wire:model="photos" multiple>
+                            <div class="d-flex">
+                                @foreach($photos as $photo)
+                                    @if(in_array($photo->getMimeType(),['image/jpeg','image/jpg','image/png','image/gif','image/webp']))
+                                        <div class="item w-25 m-2">
+                                            <img src="{{$photo->temporaryUrl()}}" class="w-100" alt="">
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+
+                            @error('photos.*')
+                            <div class="alert alert-light-danger alert-dismissible fade show border-0 mt-2" role="alert"
+                                 wire:loading.remove>
+                                <strong class="text-white">خطا! : </strong> {{$message}}</button>
+                            </div>
+                            @enderror
                         </div>
                     </div>
-
-                    <div class="col-md-4 text-center">
-                        <div class="switch form-switch-custom switch-inline form-switch-primary mt-4">
-                            <input class="switch-input" type="checkbox" role="switch" id="showPublicly" checked>
-                            <label class="switch-label" for="showPublicly">Display publicly</label>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
@@ -98,7 +101,8 @@
                                 <label for="price">قیمت</label>
                                 <input type="text" name="price" class="form-control" id="price" value="">
                                 @error('price')
-                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2" role="alert"
+                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
+                                     role="alert"
                                      wire:loading.remove>
                                     <strong class="text-white">خطا! : </strong> {{$message}}</button>
                                 </div>
@@ -109,7 +113,8 @@
                                 <label for="stock">موجودی</label>
                                 <input type="text" name="stock" class="form-control" id="stock" value="">
                                 @error('stock')
-                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2" role="alert"
+                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
+                                     role="alert"
                                      wire:loading.remove>
                                     <strong class="text-white">خطا! : </strong> {{$message}}</button>
                                 </div>
@@ -123,7 +128,8 @@
                                     @endforeach
                                 </select>
                                 @error('categoryId')
-                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2" role="alert"
+                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
+                                     role="alert"
                                      wire:loading.remove>
                                     <strong class="text-white">خطا! : </strong> {{$message}}</button>
                                 </div>
@@ -138,7 +144,8 @@
                                     @endforeach
                                 </select>
                                 @error('sellerId')
-                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2" role="alert"
+                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
+                                     role="alert"
                                      wire:loading.remove>
                                     <strong class="text-white">خطا! : </strong> {{$message}}</button>
                                 </div>
@@ -155,7 +162,8 @@
                                 <label for="discount">درصد تخفیف</label>
                                 <input type="text" name="discount" class="form-control" id="discount" value="">
                                 @error('discount')
-                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2" role="alert"
+                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
+                                     role="alert"
                                      wire:loading.remove>
                                     <strong class="text-white">خطا! : </strong> {{$message}}</button>
                                 </div>
@@ -167,7 +175,8 @@
                                 <input type="date" name="discount_duration" class="form-control" id="discount_duration"
                                        value="">
                                 @error('discount_duration')
-                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2" role="alert"
+                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
+                                     role="alert"
                                      wire:loading.remove>
                                     <strong class="text-white">خطا! : </strong> {{$message}}</button>
                                 </div>
@@ -181,7 +190,8 @@
                                     <label class="switch-label" for="featured">کالای ویژه</label>
                                 </div>
                                 @error('featured')
-                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2" role="alert"
+                                <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
+                                     role="alert"
                                      wire:loading.remove>
                                     <strong class="text-white">خطا! : </strong> {{$message}}</button>
                                 </div>

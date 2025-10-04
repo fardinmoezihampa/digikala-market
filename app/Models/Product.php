@@ -11,10 +11,14 @@ class Product extends Model
 
     protected $guarded = [];
 
-    public function submit($formData, $productId)
+    public function submit($formData, $productId, $photos)
     {
+
         $product = $this->submitToProduct($formData, $productId);
         $this->submitToSeoItem($formData, $product->id);
+        $this->saveImages($photos, $product->id);
+
+
     }
 
     public function submitToProduct($formData, $productId)
@@ -55,5 +59,23 @@ class Product extends Model
             ]
         );
 
+    }
+
+    public function saveImages($photos, $productId)
+    {
+        //$path = 'products/' . $productId . '/' . $formData['slug'] . '_' . time();
+
+        foreach ($photos as $photo) {
+
+            $photo->store(path: 'photos');
+
+            ProductImage::query()->create(
+                [
+                    'path' => 'test',
+                    'product_id' => $productId,
+                ]
+            );
+
+        }
     }
 }

@@ -8,14 +8,20 @@ use App\Models\Seller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Create extends Component
 {
+    use WithFileUploads;
+
+    public $photos = [];
+
     public $categories = [];
     public $sellers = [];
     public $name;
     public $slug;
     public $productId;
+
 
     public function mount()
     {
@@ -25,13 +31,17 @@ class Create extends Component
 
     public function submit($formData, Product $product)
     {
+
         if (isset($formData['featured'])) {
             $formData['featured'] = true;
         } else {
             $formData['featured'] = false;
         }
 
+        $formData['photos'] = $this->photos;
+
         $vaildator = Validator::make($formData, [
+            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
             'name' => 'required|string',
             'slug' => 'required|string',
             'meta_title' => 'nullable|string',
@@ -50,11 +60,12 @@ class Create extends Component
             '*.min' => 'حداقل تعداد کارکتر :min',
             'categoryId.exists' => 'دسته بندی نامعتبر است.',
             'sellerId.exists' => 'فروشنده نامعتبر است.',
+            'photos.*.image'=>'فرمت عکس نامعبر است!',
         ]);
 
         $vaildator->validate();
         $this->resetValidation();
-        $product->submit($formData, $this->productId);
+        $product->submit($formData, $this->productId,$this->photos);
         $this->dispatch('success', 'عملیات با موفقیت انجام شد.');
         $this->reset();
     }
