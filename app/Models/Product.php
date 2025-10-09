@@ -86,6 +86,8 @@ class Product extends Model
             $this->resizeImage($photo, $productId, 100, 100, 'small');
             $this->resizeImage($photo, $productId, 300, 300, 'medium');
             $this->resizeImage($photo, $productId, 800, 800, 'large');
+
+            $photo->delete();
         }
     }
 
@@ -104,6 +106,6 @@ class Product extends Model
         $manager->read($photo->getRealPath())
             ->scale($width, $height)
             ->toWebp()
-            ->save($path . '/' . $photoName);
+            ->save($path . DIRECTORY_SEPARATOR . $photoName);
     }
 }
