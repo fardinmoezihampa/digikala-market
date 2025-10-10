@@ -22,6 +22,7 @@ class Create extends Component
     public $slug;
     public $productId;
 
+    public $coverIndex = 0;
 
     public function mount()
     {
@@ -38,7 +39,13 @@ class Create extends Component
             $formData['featured'] = false;
         }
 
+        if (!isset($formData['sellerId'])) {
+            $formData['sellerId'] = null;
+        }
+
         $formData['photos'] = $this->photos;
+
+        $formData['coverIndex'] = $this->coverIndex;
 
         $vaildator = Validator::make($formData, [
             'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
@@ -53,21 +60,37 @@ class Create extends Component
             'discount_duration' => 'nullable|string',
             'sellerId' => 'required|exists:sellers,id',
             'categoryId' => 'required|exists:categories,id',
+            'coverIndex' => 'required',
         ], [
+            'coverIndex.required' => 'لطفاٌ یک عکس شاخص انتخاب کنید.',
             '*.required' => 'فیلد ضروری است.',
             '*.string' => 'فرمت اشتباه است',
             '*.integer' => 'مقدار ورودی باید عددی باشد',
             '*.min' => 'حداقل تعداد کارکتر :min',
             'categoryId.exists' => 'دسته بندی نامعتبر است.',
             'sellerId.exists' => 'فروشنده نامعتبر است.',
-            'photos.*.image'=>'فرمت عکس نامعبر است!',
+            'photos.*.image' => 'فرمت عکس نامعبر است!',
         ]);
 
         $vaildator->validate();
         $this->resetValidation();
-        $product->submit($formData, $this->productId,$this->photos);
-        $this->dispatch('success', 'عملیات با موفقیت انجام شد.');
+        $product->submit($formData, $this->productId, $this->photos, $this->coverIndex);
         $this->reset();
+        $this->redirect(route('admin.product.index'));
+        session()->flash('success', 'محصول با موفقیت افزوده شد.');
+    }
+
+    public function setCoverImage($index)
+    {
+        $this->coverIndex = $index;
+    }
+
+    public function removePhoto($index)
+    {
+        if ($index === $this->coverIndex) {
+            $this->coverIndex = null;
+        }
+        array_splice($this->photos, $index, 1);
     }
 
     public function updatedName()
