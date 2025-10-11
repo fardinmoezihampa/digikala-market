@@ -56,7 +56,7 @@
                             </td>
                             <td>
                                 <img class="rounded"
-                                     src="/products/{{$product->id}}/small/{{$product->coverImage->path}}" alt="">
+                                     src="/products/{{@$product->id}}/small/{{@$product->coverImage->path}}" alt="">
                             </td>
                             <td>
                                 <p class="mb-0">{{$product->name}}</p>

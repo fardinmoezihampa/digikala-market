@@ -14,12 +14,12 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('products')->delete();
-        
+
         \DB::table('products')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'name' => 'خرید آیفون ۱۷ اپل، قیمت تمام مدل های گوشی iphone 17',
@@ -35,8 +35,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'created_at' => '2025-10-10 20:33:59',
                 'updated_at' => '2025-10-10 20:33:59',
+                'p_code' => 'dkp-20125788',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'name' => 'گوشی موبایل اپل مدل iPhone 16e ZAA دو سیم کارت ظرفیت 128 گیگابایت و رم 8 گیگابایت',
@@ -52,8 +53,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'created_at' => '2025-10-10 21:10:53',
                 'updated_at' => '2025-10-10 21:10:53',
+                'p_code' => 'dkp-20125088',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'name' => 'گوشی موبایل آنر مدل X8c دو سیم کارت ظرفیت 256 گیگابایت و رم 8 گیگابایت',
@@ -69,8 +71,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'created_at' => '2025-10-10 21:17:10',
                 'updated_at' => '2025-10-10 21:17:10',
+                'p_code' => 'dkp-201788',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'name' => 'گوشی شیائومی Redmi Note 14 4G رجیستر‌شده دو سیم‌کارت 256 گیگابایت با رم 8 گیگابایت',
@@ -86,8 +89,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'created_at' => '2025-10-10 21:20:11',
                 'updated_at' => '2025-10-10 21:20:11',
+                'p_code' => 'dkp-201257088',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'name' => 'گوشی موبایل سامسونگ مدل Galaxy A10 SM-A105F/DS دو سیم کارت ظرفیت 32 گیگابایت',
@@ -103,8 +107,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'created_at' => '2025-10-10 21:22:51',
                 'updated_at' => '2025-10-10 21:22:51',
+                'p_code' => 'dkp-125788',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'name' => 'گوشی شیائومی Redmi Note 13 Pro 5G رجیستر‌شده دو سیم‌کارت 512 گیگابایت با رم 12 گیگابایت',
@@ -120,8 +125,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'created_at' => '2025-10-10 21:26:14',
                 'updated_at' => '2025-10-10 21:26:14',
+                'p_code' => 'dkp-201578',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'name' => 'قیمت و خرید گوشی موبایل هوآوی مدل Y9s STK-L21 دو سیم کارت ظرفیت 128 گیگابایت',
@@ -137,8 +143,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'created_at' => '2025-10-10 21:29:40',
                 'updated_at' => '2025-10-10 21:29:40',
+                'p_code' => 'dkp-20188788',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'name' => 'هندزفری بلوتوثی بیرداینامیک مدل AMIRON 300',
@@ -154,8 +161,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 5,
                 'created_at' => '2025-10-10 21:32:19',
                 'updated_at' => '2025-10-10 21:32:19',
+                'p_code' => 'dkp-2088',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'name' => 'هدفون بلوتوثی سوموس تل مدل YAS-SH24',
@@ -171,8 +179,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 5,
                 'created_at' => '2025-10-10 21:35:14',
                 'updated_at' => '2025-10-10 21:35:14',
+                'p_code' => 'dkp-25555788',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'name' => 'قیمت و خرید تلویزیون ال ای دی هوشمند جی پلاس مدل GTV-50MU722S سایز 50 اینچ',
@@ -188,8 +197,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 3,
                 'created_at' => '2025-10-10 21:37:46',
                 'updated_at' => '2025-10-10 21:37:46',
+                'p_code' => 'dkp-20124508',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'name' => 'قیمت و خرید تلویزیون کیو ال ای دی هوشمند تی سی ال مدل 65C655 سایز 65 اینچ',
@@ -205,8 +215,9 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 3,
                 'created_at' => '2025-10-10 21:40:11',
                 'updated_at' => '2025-10-10 21:40:11',
+                'p_code' => 'dkp-20125700',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'name' => 'قیمت و خرید گوشی موبایل اپل مدل iPhone 16 Plus CH دو سیم کارت ظرفیت 256 گیگابایت و رم 8 گیگابایت - رجیستر شده',
@@ -222,9 +233,10 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 1,
                 'created_at' => '2025-10-10 21:42:39',
                 'updated_at' => '2025-10-10 21:42:39',
+                'p_code' => 'dkp-208',
             ),
         ));
-        
-        
+
+
     }
 }

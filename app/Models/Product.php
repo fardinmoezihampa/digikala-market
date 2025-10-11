@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
+use Nette\Utils\Random;
 
 class Product extends Model
 {
@@ -28,6 +29,9 @@ class Product extends Model
 
     public function submitToProduct($formData, $productId)
     {
+        if ($formData['discount'] === '') {
+            $formData['discount'] = 0;
+        }
         return Product::query()->updateOrCreate(
             [
                 'id' => $productId,
@@ -44,6 +48,7 @@ class Product extends Model
                 'discount_duration' => $formData['discount_duration'],
                 'seller_id' => $formData['sellerId'],
                 'category_id' => $formData['categoryId'],
+                'p_code' => config('app.name') . '-' . $this->generateProductCode(),
             ]
         );
 
@@ -108,6 +113,16 @@ class Product extends Model
             ->scale($width, $height)
             ->toWebp()
             ->save($path . DIRECTORY_SEPARATOR . $photoName);
+    }
+
+    public function generateProductCode()
+    {
+        do {
+            $randomCode = rand(1000, 1000000);
+            $checkCode = Product::query()->where('p_code', $randomCode)->first();
+        } while ($checkCode);
+
+        return $randomCode;
     }
 
     public function category()
