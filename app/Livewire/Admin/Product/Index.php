@@ -22,7 +22,7 @@ class Index extends Component
         $products = Product::query()
             ->with('category', 'coverImage')
             ->when($this->search, function ($query) {
-                $query->where('id', 'like', '%' . $this->search . '%');
+                $query->where('name', 'like', '%' . $this->search . '%');
             })
             ->latest()
             ->paginate(4);

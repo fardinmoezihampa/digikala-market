@@ -23,11 +23,24 @@
                         <h4>لیست محصولات</h4>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="col-sm-12 mt-2">
                         <input wire:model.live.debounce.300ms="search" type="text" class="form-control" id="search"
                                name="search"
                                placeholder="جستجو..." autocomplete="">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-sm-12 mt-2">
+                        <a href="{{route('admin.product.create')}}" class="btn btn-outline-success mb-2 me-4">محصول
+                            جدید
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                 class="feather feather-plus">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -39,6 +52,7 @@
                     <thead class="bg-gradient text-info">
                     <tr>
                         <th scope="col">#</th>
+                        <th scope="col">کد محصول</th>
                         <th scope="col">تصویر</th>
                         <th scope="col">نام محصول</th>
                         <th scope="col">نام دسته</th>
@@ -54,9 +68,15 @@
                                 {{--{{$loop->index+1}}--}}
                                 {{$loop->iteration + $products->firstItem()-1}}
                             </td>
+                            <td>{{$product->p_code}}</td>
                             <td>
-                                <img class="rounded"
-                                     src="/products/{{@$product->id}}/small/{{@$product->coverImage->path}}" alt="">
+                                @if(isset($product->coverImage->path))
+                                    <img class="rounded"
+                                         src="/products/{{$product->id}}/small/{{$product->coverImage->path}}" alt="">
+                                @else
+                                    <span class="badge badge-info">بدون تصویر</span>
+                                @endif
+
                             </td>
                             <td>
                                 <p class="mb-0">{{$product->name}}</p>
