@@ -32,9 +32,10 @@
                 </div>
                 <div class="col-md-2">
                     <div class="col-sm-12 mt-2">
-                        <a href="{{route('admin.product.create')}}" class="btn btn-outline-success mb-2 me-4">محصول
-                            جدید
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        <a href="{{route('admin.product.create')}}" class="btn btn-outline-success mb-2 me-4" target="_blank">
+                            محصول جدید
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none"
                                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                  class="feather feather-plus">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -72,15 +73,22 @@
                             <td>
                                 @if(isset($product->coverImage->path))
                                     <img class="rounded"
-                                         src="/products/{{$product->id}}/small/{{$product->coverImage->path}}" alt="">
+                                         src="/products/{{$product->id}}/small/{{$product->coverImage->path}}"
+                                         alt="تصویر محصول"
+                                         style="width: 60px; height: 60px; object-fit: cover;">
                                 @else
                                     <span class="badge badge-info">بدون تصویر</span>
                                 @endif
 
                             </td>
                             <td>
-                                <p class="mb-0">{{$product->name}}</p>
+                                <div class="media">
+                                    <div class="media-body align-self-center">
+                                        <h6 class="mb-0">{{\Illuminate\Support\Str::limit($product->name,40)}}</h6>
+                                    </div>
+                                </div>
                             </td>
+
                             <td>
                                 {{$product->category->name}}
                             </td>
