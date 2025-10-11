@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->timestamp('picture')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
 

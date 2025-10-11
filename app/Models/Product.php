@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
-use Nette\Utils\Random;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $guarded = [];
 
@@ -134,5 +135,22 @@ class Product extends Model
     {
         return $this->hasOne(ProductImage::class, 'product_id', 'id')
             ->where('is_cover', true);
+    }
+
+    public function removeProduct($deletedId)
+    {
+
+        DB::transaction(function () use ($deletedId) {
+
+            Product::query()->where('id', $deletedId)->delete();
+
+            ProductImage::query()->where('product_id', $deletedId)->delete();
+
+            SeoItem::query()->where('ref_id', $deletedId)->delete();
+
+            // بهتر که حذف تصاویر بعد از اطمینان از حذف محصول از دیسک انجام شود.
+            //File::deleteDirectory('products/' . $deletedId);
+
+        });
     }
 }
