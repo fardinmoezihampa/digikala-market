@@ -4,7 +4,8 @@
 
             <div class="col-xxl-12 col-md-6 mb-4">
                 <label for="price">قیمت</label>
-                <input type="text" name="price" class="form-control" id="price" value="">
+                <input type="text" name="price" class="form-control" wire:model="price" id="price"
+                       value="{{$product ? $product->price : ''}}">
                 @error('price')
                 <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
                      role="alert"
@@ -16,7 +17,8 @@
 
             <div class="col-xxl-12 col-md-6 mb-4">
                 <label for="stock">موجودی</label>
-                <input type="text" name="stock" class="form-control" id="stock" value="">
+                <input type="text" name="stock" class="form-control" wire:model="stock" id="stock"
+                       value="{{$product ? $product->stock : ''}}">
                 @error('stock')
                 <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
                      role="alert"
@@ -29,7 +31,9 @@
                 <label for="categoryId">نام دسته بندی</label>
                 <select class="form-select" name="categoryId" id="categoryId">
                     @foreach($categories as $category)
-                        <option value="{{$category->id}}">{{$category->name}}</option>
+                        <option
+                            value="{{@$category->id}}" {{@$category->id == @$product->category_id ? 'selected' : ''}}>{{$category->name}}
+                        </option>
                     @endforeach
                 </select>
                 @error('categoryId')
@@ -45,7 +49,9 @@
                 <label for="sellerId">فروشنده</label>
                 <select class="form-select" name="sellerId" id="sellerId">
                     @foreach($sellers as $seller)
-                        <option value="{{$seller->id}}">{{$seller->shop_name}}</option>
+                        <option
+                            value="{{@$seller->id}}" {{@$seller->id == @$product->seller_id ? 'selected' : ''}}>{{$seller->shop_name}}
+                        </option>
                     @endforeach
                 </select>
                 @error('sellerId')

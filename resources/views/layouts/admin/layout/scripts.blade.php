@@ -16,6 +16,8 @@
 <script src="/admin/src/plugins/src/sweetalerts2/custom-sweetalert.js"></script>
 <!-- END THEME GLOBAL STYLE -->
 
+@stack('scripts')
+
 <script>
     document.addEventListener('success', function (event) {
         Swal.fire({

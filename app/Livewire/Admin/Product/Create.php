@@ -4,7 +4,10 @@ namespace App\Livewire\Admin\Product;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Seller;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -18,20 +21,43 @@ class Create extends Component
 
     public $categories = [];
     public $sellers = [];
+    public $productId;
+    public $product;
+    public $coverIndex = 0;
+
+    //edit
     public $name;
     public $slug;
-    public $productId;
+    public $discount_duration;
 
-    public $coverIndex = 0;
 
     public function mount()
     {
+        if ($_GET and $_GET['p_id']) {
+
+            $this->productId = $_GET['p_id'];
+            $product = $this->product = Product::query()
+                ->with('seo', 'images')
+                ->where('id', $this->productId)
+                ->firstOrFail();
+
+            $this->name = $product->name;
+            $this->slug = $product->seo->slug;
+
+            $this->discount_duration = $product->discount_duration
+                ? Carbon::parse($product->discount_duration)->format('Y-m-d')
+                : null;
+        }
+
         $this->categories = Category::all();
         $this->sellers = Seller::query()->select('id', 'shop_name')->get();
+
+
     }
 
     public function submit($formData, Product $product)
     {
+        $formData['discount_duration'] = $this->discount_duration ?: null;
 
         if (isset($formData['featured'])) {
             $formData['featured'] = true;
@@ -85,6 +111,19 @@ class Create extends Component
         $this->coverIndex = $index;
     }
 
+    public function setCoverOldImage($photoId)
+    {
+        ProductImage::query()->where('product_id', $this->productId)->update(['is_cover' => false]);
+
+        ProductImage::query()->where([
+            'product_id' => $this->productId,
+            'id' => $photoId,
+        ])->update(['is_cover' => true]);
+
+        $this->dispatch('success',' تصویر کاور با موفقیت تغییر کرد');
+    }
+
+
     public function removePhoto($index)
     {
         if ($index === $this->coverIndex) {
@@ -92,6 +131,15 @@ class Create extends Component
         }
         array_splice($this->photos, $index, 1);
     }
+
+    public function removeOldPhoto(ProductImage $productImage, $productId)
+    {
+        $productImage->delete();
+        File::delete(public_path('products/' . $productId . '/small/' . $productImage->path));
+        File::delete(public_path('products/' . $productId . '/medium/' . $productImage->path));
+        File::delete(public_path('products/' . $productId . '/large/' . $productImage->path));
+    }
+
 
     public function updatedName()
     {

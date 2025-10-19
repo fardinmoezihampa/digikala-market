@@ -15,4 +15,5 @@
             </div>
         </div>
     </form>
+    @include('layouts.admin.include.modal')
 </div>

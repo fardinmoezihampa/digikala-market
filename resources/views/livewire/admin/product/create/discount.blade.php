@@ -3,7 +3,8 @@
         <div class="row">
             <div class="col-sm-12 mb-4">
                 <label for="discount">درصد تخفیف</label>
-                <input type="text" name="discount" class="form-control" id="discount" value="">
+                <input type="text" name="discount" class="form-control" id="discount"
+                       value="{{$product ? $product->discount :''}}">
                 @error('discount')
                 <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
                      role="alert"
@@ -16,7 +17,8 @@
             <div class="col-sm-12 mb-4">
                 <label for="discount_duration">تاریخ انقضاء</label>
                 <input type="date" name="discount_duration" class="form-control" id="discount_duration"
-                       value="">
+                       wire:model.defer="discount_duration"
+                       value="{{ $product ? $product->discount_duration : '' }}">
                 @error('discount_duration')
                 <div class="alert alert-light-danger alert-dismissible fade show border-0 mb-2 mt-2"
                      role="alert"
@@ -29,6 +31,7 @@
             <div class="col-sm-12 mb-4">
                 <div class="switch form-switch-custom switch-inline form-switch-danger">
                     <input class="switch-input" name="featured" type="checkbox" role="switch"
+                           {{@$product->featured==true ? 'checked' :''}}
                            id="pricing-includes-texes">
                     <label class="switch-label" for="featured">کالای ویژه</label>
                 </div>
