@@ -3,7 +3,6 @@
 namespace App\Livewire\Admin\Product;
 
 use App\Models\Product;
-use App\Models\SeoItem;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,24 +18,18 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function delete($product_id = null)
+    public function delete(Product $product = null)
     {
-        if ($product_id) {
-            $this->deletedId = $product_id;
+        if ($product->id) {
+            $this->deletedId = $product->id;
             return;
         }
 
-        if ($this->deletedId) {
+        $product->removeProduct($this->deletedId);
+        $this->dispatch('success', 'محصول مورد نظر باموفقیت حذف شد.');
+        $this->deletedId = null;
+        $this->resetPage();
 
-            $product = Product::query()->where('id', $this->deletedId)->firstOrFail();
-            $product->delete();
-
-            $seoItem = SeoItem::query()->where('ref_id', $this->deletedId)->firstOrFail();
-            $seoItem->delete();
-
-            $this->dispatch('success', 'محصول مورد نظر باموفقیت حذف شد.');
-            $this->deletedId = null;
-        }
     }
 
     public function render()

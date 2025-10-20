@@ -26,8 +26,10 @@ class CategoryFeature extends Model
         );
     }
 
-    public function values()
+    public function categoryFeatureValues()
     {
         return $this->hasMany(CategoryFeatureValue::class, 'category_feature_id', 'id');
     }
+
+
 }

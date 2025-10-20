@@ -32,7 +32,8 @@
                 </div>
                 <div class="col-md-2">
                     <div class="col-sm-12 mt-2">
-                        <a href="{{route('admin.product.create')}}" class="btn btn-outline-success mb-2 me-4" target="_blank">
+                        <a href="{{route('admin.product.create')}}" class="btn btn-outline-success mb-2 me-4"
+                           target="_blank">
                             محصول جدید
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none"
@@ -58,6 +59,7 @@
                         <th scope="col">نام محصول</th>
                         <th scope="col">نام دسته</th>
                         <th scope="col">قیمت</th>
+                        <th scope="col">ویژگی ها</th>
                         <th class="text-center" scope="col">عملیات</th>
                     </tr>
                     </thead>
@@ -94,6 +96,11 @@
                             </td>
                             <td>
                                 {{number_format($product->price)}}
+                            </td>
+                            <td>
+                                <a href="{{route('admin.product.features',$product->id)}}">
+                                    <span class="btn btn-outline-info">ویژگی</span>
+                                </a>
                             </td>
                             <td class="text-center">
                                 <div class="action-btns">

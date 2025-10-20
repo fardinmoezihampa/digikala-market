@@ -24,4 +24,6 @@ class CategoryFeatureValue extends Model
             ]
         );
     }
+
+
 }

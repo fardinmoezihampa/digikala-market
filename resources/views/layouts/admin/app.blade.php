@@ -17,9 +17,9 @@
 
 <!--  BEGIN NAVBAR  -->
 <livewire:admin.layout.header/>
-<!--  END NAVBAR  -->
+<!--  end navbar  -->
 
-<!--  BEGIN MAIN CONTAINER  -->
+<!--  begin main container  -->
 <div class="main-container" id="container">
 
     <div class="overlay"></div>

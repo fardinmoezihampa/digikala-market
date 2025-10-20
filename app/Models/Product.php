@@ -12,7 +12,7 @@ use Intervention\Image\ImageManager;
 
 class Product extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
@@ -135,6 +135,16 @@ class Product extends Model
     {
         return $this->hasOne(ProductImage::class, 'product_id', 'id')
             ->where('is_cover', true);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id', 'id');
+    }
+
+    public function seo()
+    {
+        return $this->hasOne(SeoItem::class, 'ref_id', 'id');
     }
 
     public function removeProduct($deletedId)
