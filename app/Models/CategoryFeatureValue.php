@@ -25,5 +25,9 @@ class CategoryFeatureValue extends Model
         );
     }
 
-
+    public function featureValueForProduct()
+    {
+        return $this->hasOne(ProductFeatureValue::class, 'category_feature_value_id', 'id')
+            ->where('product_id', request()->route('product')->id ?? null);
+    }
 }

@@ -28,5 +28,4 @@ class ProductFeatureValue extends Model
             );
         }
     }
-
 }

@@ -31,5 +31,4 @@ class CategoryFeature extends Model
         return $this->hasMany(CategoryFeatureValue::class, 'category_feature_id', 'id');
     }
 
-
 }

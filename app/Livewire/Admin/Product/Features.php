@@ -21,9 +21,10 @@ class Features extends Component
         $this->productName = $product->name;
 
         $this->features = CategoryFeature::query()
-            ->with('categoryFeatureValues')
+            ->with('categoryFeatureValues', 'categoryFeatureValues.featureValueForProduct')
             ->where('category_id', $categoryId)
             ->get();
+        //dd($this->features);
     }
 
     public function submit($formData, ProductFeatureValue $productFeatureValue)

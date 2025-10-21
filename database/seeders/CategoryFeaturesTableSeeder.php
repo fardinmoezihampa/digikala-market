@@ -48,33 +48,6 @@ class CategoryFeaturesTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 34,
-                'name' => 'اندازه',
-                'category_id' => 1,
-                'deleted_at' => '2025-09-30 20:34:23',
-                'created_at' => '2025-09-28 22:32:53',
-                'updated_at' => '2025-09-30 20:34:23',
-            ),
-            4 => 
-            array (
-                'id' => 35,
-                'name' => 'ابعاد',
-                'category_id' => 3,
-                'deleted_at' => NULL,
-                'created_at' => '2025-09-28 22:42:01',
-                'updated_at' => '2025-09-28 22:42:01',
-            ),
-            5 => 
-            array (
-                'id' => 36,
-                'name' => 'میزان سرمادهی',
-                'category_id' => 3,
-                'deleted_at' => NULL,
-                'created_at' => '2025-09-28 22:42:23',
-                'updated_at' => '2025-09-28 22:42:33',
-            ),
-            6 => 
-            array (
                 'id' => 37,
                 'name' => 'تراشه',
                 'category_id' => 1,
@@ -82,7 +55,7 @@ class CategoryFeaturesTableSeeder extends Seeder
                 'created_at' => '2025-09-28 22:43:17',
                 'updated_at' => '2025-09-28 22:43:17',
             ),
-            7 => 
+            4 => 
             array (
                 'id' => 38,
                 'name' => 'پردازنده‌',
@@ -91,16 +64,7 @@ class CategoryFeaturesTableSeeder extends Seeder
                 'created_at' => '2025-09-28 22:43:25',
                 'updated_at' => '2025-09-28 23:07:25',
             ),
-            8 => 
-            array (
-                'id' => 40,
-                'name' => 'تست1',
-                'category_id' => 1,
-                'deleted_at' => '2025-09-30 20:35:33',
-                'created_at' => '2025-09-28 23:00:03',
-                'updated_at' => '2025-09-30 20:35:33',
-            ),
-            9 => 
+            5 => 
             array (
                 'id' => 42,
                 'name' => 'حافظه داخلی',
@@ -109,7 +73,7 @@ class CategoryFeaturesTableSeeder extends Seeder
                 'created_at' => '2025-09-28 23:01:19',
                 'updated_at' => '2025-09-28 23:01:19',
             ),
-            10 => 
+            6 => 
             array (
                 'id' => 43,
                 'name' => 'استاندارد کارت حافظه',
@@ -117,6 +81,15 @@ class CategoryFeaturesTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'created_at' => '2025-09-28 23:01:34',
                 'updated_at' => '2025-09-28 23:01:34',
+            ),
+            7 => 
+            array (
+                'id' => 46,
+                'name' => 'سایز',
+                'category_id' => 3,
+                'deleted_at' => NULL,
+                'created_at' => '2025-10-21 10:15:51',
+                'updated_at' => '2025-10-21 10:15:51',
             ),
         ));
         

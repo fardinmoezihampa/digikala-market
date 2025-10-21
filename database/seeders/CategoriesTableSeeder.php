@@ -49,11 +49,11 @@ class CategoriesTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 4,
-                'name' => 'یخچال',
+                'name' => 'یخچال LG',
                 'category_id' => 3,
                 'deleted_at' => NULL,
                 'created_at' => '2025-09-25 20:21:31',
-                'updated_at' => '2025-09-25 20:21:31',
+                'updated_at' => '2025-10-21 10:12:30',
             ),
             4 => 
             array (
@@ -68,10 +68,10 @@ class CategoriesTableSeeder extends Seeder
             array (
                 'id' => 6,
                 'name' => 'هدفون',
-                'category_id' => 5,
+                'category_id' => 3,
                 'deleted_at' => NULL,
                 'created_at' => '2025-09-25 20:22:02',
-                'updated_at' => '2025-09-25 20:22:02',
+                'updated_at' => '2025-10-21 10:05:10',
             ),
             6 => 
             array (

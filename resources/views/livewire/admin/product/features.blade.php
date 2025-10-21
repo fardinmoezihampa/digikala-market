@@ -21,7 +21,10 @@
                             <select id="select-beast" name="featureValueId[{{$loop->index}}]" class="form-select"
                                     wire:ignore>
                                 @forelse($feature->categoryFeatureValues as $value)
-                                    <option value="{{$feature->id}}_{{$value->id}}">{{$value->name}}</option>
+                                    <option value="{{ $feature->id }}_{{ $value->id }}"
+                                        {{ ( $value->featureValueForProduct->category_feature_value_id ?? null ) == $value->id ? 'selected' : '' }}>
+                                        {{ $value->name }}
+                                    </option>
                                 @empty
                                     <option value="">مقدار ندارد</option>
                                 @endforelse
