@@ -42,8 +42,8 @@ class Product extends Model
                 'name' => $formData['name'],
                 'price' => $formData['price'],
                 'discount' => $formData['discount'],
-                'short_description' => $formData['meta_title'],
-                'long_description' => $formData['meta_description'],
+                /* 'short_description' => $formData['meta_title'],
+                 'long_description' => $formData['meta_description'],*/
                 'stock' => $formData['stock'],
                 'featured' => $formData['featured'],
                 'discount_duration' => $formData['discount_duration'],
@@ -162,5 +162,17 @@ class Product extends Model
             //File::deleteDirectory('products/' . $deletedId);
 
         });
+    }
+
+    public function submitProductContent($formData, $productId)
+    {
+        //dd($formData);
+
+        Product::query()->where('id', $productId)->update(
+            [
+                'short_description' => $formData['short_description'],
+                'long_description' => $formData['long_description'],
+            ]
+        );
     }
 }

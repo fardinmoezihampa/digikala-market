@@ -2,9 +2,9 @@
     @section('title','ویژگی محصول')
     <div class="row">
         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-            <h4> ویژگی دسته بندی
-                <span wire:ignore="" class="text-info">{{\Illuminate\Support\Str::limit(@$productName,50)}}</span>
-            </h4>
+            <h6>  ویژگی دسته بندی برای محصول :
+                <span wire:ignore class="text-info">{{\Illuminate\Support\Str::limit(@$productName,70)}}</span>
+            </h6>
         </div>
     </div>
     <div class="statbox widget box box-shadow">
