@@ -57,6 +57,9 @@
             document.addEventListener('livewire:init', () => {
 
                 const editor=CKEDITOR.replace('long_description',{
+
+                    filebrowserUploadUrl: "{{route('admin.ck-upload', [$productId,'_token' => csrf_token() ])}}",
+                    filebrowserUploadMethod: 'form',
                     contentsLangDirection: 'rtl',
                     height: 500,
                 })
@@ -71,20 +74,3 @@
     @endpush
 </div>
 
-{{--
-<script>
-    document.addEventListener('livewire:init', () => {
-
-        const editor=CKEDITOR.replace('long_description',{
-            filebrowserUploadUrl: "{{route('admin.ck-upload', [$productId,'_token' => csrf_token() ])}}",
-            filebrowserUploadMethod: 'form',
-            contentsLangDirection: 'rtl',
-            height: 500,
-        })
-        editor.on('change',function (event) {
-            console.log(event.editor.getData());
-        @this.set('longDescription',event.editor.getData())
-        })
-    })
-
-</script>--}}

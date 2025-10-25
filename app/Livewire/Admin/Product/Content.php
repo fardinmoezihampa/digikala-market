@@ -17,12 +17,14 @@ class Content extends Component
     {
         $this->productName = $product->name;
         $this->productId = $product->id;
+        $this->shortDescription = $product->short_description;
+        $this->longDescription = $product->long_description;
     }
 
     public function submit($formData, Product $product)
     {
-        /*$formData['long_description'] = $this->longDescription;
-        $formData['short_description'] = $this->shortDescription;*/
+        $formData['long_description'] = $this->longDescription;
+        $formData['short_description'] = $this->shortDescription;
 
         $validator = Validator::make($formData, [
             'short_description' => 'required|string',
