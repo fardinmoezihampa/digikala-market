@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\UPloadFile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes,UPloadFile;
 
     protected $guarded = [];
 
@@ -90,30 +89,12 @@ class Product extends Model
     public function saveImages($photos, $productId)
     {
         foreach ($photos as $photo) {
-            $this->resizeImage($photo, $productId, 100, 100, 'small');
-            $this->resizeImage($photo, $productId, 300, 300, 'medium');
-            $this->resizeImage($photo, $productId, 800, 800, 'large');
+            $this->uploadImageInWebpFormat($photo, $productId, 100, 100, 'small');
+            $this->uploadImageInWebpFormat($photo, $productId, 300, 300, 'medium');
+            $this->uploadImageInWebpFormat($photo, $productId, 800, 800, 'large');
 
             $photo->delete();
         }
-    }
-
-    public function resizeImage($photo, $productId, $width, $height, $folder)
-    {
-        $path = public_path('products/' . $productId . '/' . $folder);
-
-        if (!file_exists($path)) {
-            mkdir($path, 0755, true);
-        }
-
-        $photoName = pathinfo($photo->hashName(), PATHINFO_FILENAME) . '.' . 'webp';
-
-        $manager = new ImageManager(new Driver());
-
-        $manager->read($photo->getRealPath())
-            ->scale($width, $height)
-            ->toWebp()
-            ->save($path . DIRECTORY_SEPARATOR . $photoName);
     }
 
     public function generateProductCode()
