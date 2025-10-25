@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Traits;
+
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
+
+trait UPloadFile
+{
+
+
+    public function uploadImageInWebpFormat($photo, $productId, $width, $height, $folder)
+    {
+        $path = public_path('products/' . $productId . '/' . $folder);
+
+        if (!file_exists($path)) {
+            mkdir($path, 0755, true);
+        }
+
+        $photoName = pathinfo($photo->hashName(), PATHINFO_FILENAME) . '.' . 'webp';
+
+        $manager = new ImageManager(new Driver());
+
+        $manager->read($photo->getRealPath())
+            ->scale($width, $height)
+            ->toWebp()
+            ->save($path . DIRECTORY_SEPARATOR . $photoName);
+
+    }
+}
