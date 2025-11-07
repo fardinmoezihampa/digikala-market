@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Product;
 
 use App\Models\Product;
+use App\Repositories\admin\AdminProductRepositoryInterface;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,6 +19,13 @@ class Index extends Component
         $this->resetPage();
     }
 
+    private $repository;
+
+    public function boot(AdminProductRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function delete(Product $product = null)
     {
         if ($product->id) {
@@ -25,11 +33,10 @@ class Index extends Component
             return;
         }
 
-        $product->removeProduct($this->deletedId);
+        $this->repository->removeProduct($this->deletedId);
         $this->dispatch('success', 'محصول مورد نظر باموفقیت حذف شد.');
         $this->deletedId = null;
         $this->resetPage();
-
     }
 
     public function render()

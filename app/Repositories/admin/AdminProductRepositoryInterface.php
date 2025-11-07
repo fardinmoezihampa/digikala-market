@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\admin;
 
-use App\Models\ProductImage;
-
-interface ProductRepositoryInterface
+interface AdminProductRepositoryInterface
 {
     public function submit($formData, $productId, $photos, $coverIndex);
 
@@ -25,4 +23,6 @@ interface ProductRepositoryInterface
     public function removeOldPhoto($productImage, $productId);
 
     public function setCoverOldImage($photoId,$productId);
+
+    public function submitProductFeatures($formData, $productId);
 }

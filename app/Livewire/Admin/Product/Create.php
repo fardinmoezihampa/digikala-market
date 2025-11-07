@@ -6,7 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Seller;
-use App\Repositories\ProductRepositoryInterface;
+use App\Repositories\admin\AdminProductRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -33,7 +33,7 @@ class Create extends Component
 
     private $repository;
 
-    public function boot(ProductRepositoryInterface $repository)
+    public function boot(AdminProductRepositoryInterface $repository)
     {
         $this->repository = $repository;
     }
@@ -134,7 +134,6 @@ class Create extends Component
     {
         $this->repository->removeOldPhoto($productImage, $productId);
     }
-
 
     public function updatedName()
     {
