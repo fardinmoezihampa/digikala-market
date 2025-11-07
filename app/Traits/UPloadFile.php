@@ -5,10 +5,8 @@ namespace App\Traits;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
-trait UPloadFile
+trait UPLoadFile
 {
-
-
     public function uploadImageInWebpFormat($photo, $productId, $width, $height, $folder)
     {
         $path = public_path('products/' . $productId . '/' . $folder);
@@ -25,6 +23,5 @@ trait UPloadFile
             ->scale($width, $height)
             ->toWebp()
             ->save($path . DIRECTORY_SEPARATOR . $photoName);
-
     }
 }

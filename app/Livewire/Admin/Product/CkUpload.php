@@ -2,14 +2,13 @@
 
 namespace App\Livewire\Admin\Product;
 
-
-use App\Traits\UPloadFile;
+use App\Traits\UPLoadFile;
 use Illuminate\Http\Request;
 use Livewire\Component;
 
 class CkUpload extends Component
 {
-    use UPloadFile;
+    use UPLoadFile;
 
     public function upload($productId,Request $request)
     {
@@ -24,8 +23,6 @@ class CkUpload extends Component
 
             @header('Content-type: text/html; charset=utf-8');
             echo $response;
-
         }
     }
-
 }

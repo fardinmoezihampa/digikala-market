@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Seller;
+use App\Repositories\ProductRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -30,6 +31,12 @@ class Create extends Component
     public $slug;
     public $discount_duration;
 
+    private $repository;
+
+    public function boot(ProductRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
     public function mount()
     {
@@ -48,14 +55,11 @@ class Create extends Component
                 ? Carbon::parse($product->discount_duration)->format('Y-m-d')
                 : null;
         }
-
         $this->categories = Category::all();
         $this->sellers = Seller::query()->select('id', 'shop_name')->get();
-
-
     }
 
-    public function submit($formData, Product $product)
+    public function submit($formData)
     {
         $formData['discount_duration'] = $this->discount_duration ?: null;
 
@@ -100,7 +104,7 @@ class Create extends Component
 
         $vaildator->validate();
         $this->resetValidation();
-        $product->submit($formData, $this->productId, $this->photos, $this->coverIndex);
+        $this->repository->submit($formData, $this->productId, $this->photos, $this->coverIndex);
         $this->reset();
         $this->redirect(route('admin.product.index'));
         session()->flash('success', 'محصول با موفقیت افزوده شد.');
@@ -113,16 +117,10 @@ class Create extends Component
 
     public function setCoverOldImage($photoId)
     {
-        ProductImage::query()->where('product_id', $this->productId)->update(['is_cover' => false]);
+        $this->repository->setCoverOldImage($photoId,$this->productId);
 
-        ProductImage::query()->where([
-            'product_id' => $this->productId,
-            'id' => $photoId,
-        ])->update(['is_cover' => true]);
-
-        $this->dispatch('success',' تصویر کاور با موفقیت تغییر کرد');
+        $this->dispatch('success', ' تصویر کاور با موفقیت تغییر کرد');
     }
-
 
     public function removePhoto($index)
     {
@@ -134,10 +132,7 @@ class Create extends Component
 
     public function removeOldPhoto(ProductImage $productImage, $productId)
     {
-        $productImage->delete();
-        File::delete(public_path('products/' . $productId . '/small/' . $productImage->path));
-        File::delete(public_path('products/' . $productId . '/medium/' . $productImage->path));
-        File::delete(public_path('products/' . $productId . '/large/' . $productImage->path));
+        $this->repository->removeOldPhoto($productImage, $productId);
     }
 
 
