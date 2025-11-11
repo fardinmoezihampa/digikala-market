@@ -12,19 +12,6 @@ class CategoryFeatureValue extends Model
 
     protected $guarded = [];
 
-    public function submit($formData, $valueId, $featureId)
-    {
-        CategoryFeatureValue::query()->updateOrCreate(
-            [
-                'id' => $valueId,
-            ],
-            [
-                'name' => $formData['value'],
-                'category_feature_id' => $featureId,
-            ]
-        );
-    }
-
     public function featureValueForProduct()
     {
         return $this->hasOne(ProductFeatureValue::class, 'category_feature_value_id', 'id')

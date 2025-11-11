@@ -12,18 +12,10 @@ class CategoryFeature extends Model
 
     protected $guarded = [];
 
-    public function submit($formData, $categoryId, $featureId)
+    public function values()
     {
-        CategoryFeature::query()->updateOrCreate(
-            [
-                'id' => $featureId,
-            ]
-            ,
-            [
-                'name' => $formData['name'],
-                'category_id' => $categoryId,
-            ]
-        );
+        return $this->hasMany(CategoryFeatureValue::class, 'category_feature_id', 'id');
+        //return $this->hasMany(CategoryFeatureValue::class);
     }
 
     public function categoryFeatureValues()
